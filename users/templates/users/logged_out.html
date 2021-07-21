@@ -1,0 +1,25 @@
+{% extends "mainapp/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+  <br><br><br><br>
+  <center>
+    <img src="{% static 'img/logo.png' %}" style="width: 150px; height: auto;"class="img-fluid">
+  </center>
+
+  <br><br>
+  <h3 class="text-center">Sign Out</h3>
+
+  <p class="text-center">Are you sure you want to sign out  ?</p>
+
+  <form method="post" action="{% url 'account_logout' %}">
+    {% csrf_token %}
+    {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+    {% endif %}
+    <center><button type="submit" class="btn btn-success">Yes, I'm signing out</button></center>
+  </form>
+</div>
+
+{% endblock %}

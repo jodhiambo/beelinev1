@@ -1,0 +1,237 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block css %}
+{% include 'mainapp/head4.html' %}
+{% endblock css %}
+
+{% block content %}
+  <nav id="navbar-main" class="navbar navbar-horizontal navbar-transparent navbar-main navbar-expand-lg navbar-light">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'mainapp:home' %}">
+        <img src="{% static 'assets/img/logo.png' %}" style="width:150px; height:auto">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse navbar-custom-collapse collapse" id="navbar-collapse">
+        <div class="navbar-collapse-header">
+          <div class="row">
+            <div class="col-6 collapse-brand">
+              <a href="{% url 'mainapp:home' %}">
+                <img src="{% static 'assets/img/logo.png' %}" style="width:150px; height:auto">
+              </a>
+            </div>
+            <div class="col-6 collapse-close">
+              <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a href="{% url 'mainapp:home' %}" class="nav-link">
+              <span class="nav-link-inner--text">Home</span>
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" aria-expanded="false" data-toggle="dropdown">
+                <span class="nav-link-inner-text ">Challenges</span>
+
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg">
+                <div class="col-auto px-0" data-dropdown-content>
+                    <div class="list-group list-group-flush">
+                        <a href="{% url 'mainapp:challenges' %}"
+                            class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
+                            <span class="icon icon-sm icon-success"><i class="fas fa-check-double" style="color:#24262b!important;"></i></span>
+                            <div class="ml-4">
+                                <span class="text-dark d-block">All Challenges</span>
+                            </div>
+                        </a>
+                        <a href="" target="_blank"
+                            class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
+                            <span class="icon icon-sm icon-success"><i
+                                    class="fas fa-box-open" style="color:#05A677!important;"></i></span>
+                            <div class="ml-4">
+                                <span class="text-dark d-block">Open Challenges</span>
+                            </div>
+                        </a>
+                        <a href="" target="_blank"
+                            class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
+                            <span class="icon icon-sm icon-primary"><i
+                                    class="fas fa-sync-alt" style="color:#0648B3!important;"></i></span>
+                            <div class="ml-4">
+                                <span class="text-dark d-block">Rolling Challenges</span>
+                            </div>
+                        </a>
+                        <a href="" target="_blank"
+                            class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
+                            <span class="icon icon-sm icon-purple"><i
+                                    class="far fa-clock" style="color:#8965e0!important;"></i></span>
+                            <div class="ml-4">
+                                <span class="text-dark d-block">Coming Soon</span>
+                            </div>
+                        </a>
+                        <a href="" target="_blank"
+                            class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
+                            <span class="icon icon-sm icon-danger"><i
+                                    class="fas fa-archive" style="color:#FA5252!important;"></i></span>
+                            <div class="ml-4">
+                                <span class="text-dark d-block">Archived Challenges</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+          </li>
+          <li class="nav-item">
+              <a href="{% url 'mainapp:about'%}" class="nav-link" >About Us</a>
+          </li>
+          <li class="nav-item">
+              <a href="{% url 'news:news'%}" class="nav-link" >News</a>
+          </li>
+          <li class="nav-item">
+          <a href="{% url 'mainapp:submit-a-challenge'%}" target="_blank" class="nav-link"><i class="fas fa-paper-plane mr-2"></i>Submit a Challenge</a>
+          </li>
+          
+          {% if not user.is_authenticated %}
+          <li class="nav-item">
+              <a href="{% url 'users:account_login' %}" class="nav-link" >Login or Register</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+              <a href="{% url 'userprofiles:profile' %}" class="nav-link">Profile</a>
+          </li>
+          <li class="nav-item">
+          <a href="{% url 'account_logout' %}" class="nav-link" >Logout</a>
+          </li>
+          {% endif %}  
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- Main content -->
+  <div class="main-content" id="panel">
+
+    <!-- Header -->
+    <div class="header pb-6" style="background-image: linear-gradient(#e38928, #121212);">
+      <div class="container-fluid">
+        <div class="header-body">
+          <div class="row align-items-center py-4">
+
+
+          </div>
+<div>
+<h1 class="display-2 text-white text-center mt-6 mb-3"><b>{{the_post.title|upper}}</b></h1>
+<p class="text-white text-center"><i class="fa fa-bullhorn"></i>Targeted Audience: <b>{{the_post.targeted_audience}}</p>
+<p class="text-white text-center"><i class="fa fa-phone"></i>Point of Contact: <b>{{the_post.point_of_contact}}</b></p>
+<p class="text-white text-center"><i class="fa fa-trophy"></i><b>Award: <b>{{the_post.prize}}</b></b></p>
+<p class="text-white text-center"><i class="fa fa-clock"></i> Duration: <a class="btn btn-sm btn-neutral"><span style="color:black!important">{{the_post.open_until|timeuntil:the_post.date_posted}} left</span></a></p>
+<div class="row align-items-center justify-content-xl-between">
+  <div class="col-xl-12">
+    <div class="text-center text-xl-right">
+      <p class="text-white pt-5"><span class="pt-3 pr-3 pl-3 pb-3" style="background-color:rgba(0,0,0,0.5)"><span class="small">Share this post now </span>
+      &nbsp;&nbsp;&nbsp; <a href="whatsapp://send?text=https://beeline-challenges.com/{{the_post.get_absolute_url}}" target="_blank"><i class="fab fa-whatsapp icon icon-sm icon-success" style="color:#05A677!important;"></i></a>
+      &nbsp;&nbsp;&nbsp; <a href="https://www.facebook.com/sharer/sharer.php?u=https://beeline-challenges.com/{{the_post.get_absolute_url}}" target="_blank"><i class="fab fa-facebook-f icon icon-sm icon-light"></i></a>
+      &nbsp;&nbsp;&nbsp; <a href="https://twitter.com/share?url=https://beeline-challenges.com/{{the_post.get_absolute_url}}" target="_blank"><i class="fab fa-twitter icon icon-sm icon-info" style="color:#11cdef!important;"></i></a></span></p>
+    </div>
+  </div>
+</div>
+
+
+</div>
+<br>
+<br>
+        </div>
+      </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+
+      <div class="row">
+        <div class="col-xl-8">
+          <div class="card">
+            <div class="card-header border-0">
+
+            </div>
+            <div class="pr-4 pl-4 pt-3">
+            <h2>Description</h2>
+            <p>{{the_post.description|safe}}</p>
+            </div>
+            <hr class="my-4" />
+            <div class="pr-4 pl-4 pt-4">
+            <h2>Who can Participate</h2>
+            <p>{{the_post.who_can_participate|safe}}</p>
+            </div>
+            <hr class="my-4" />
+            <div class="pr-4 pl-4 pt-4">
+            <h2>How to Participate</h2>
+            <p>{{the_post.how_to_participate|safe}}</p>
+            </div>
+            <hr class="my-4" />
+            <div class="pr-4 pl-4 pt-4">
+            <h2>Additional Information</h2>
+            <p>{{the_post.additional_information|safe}}</p>
+            </div>
+            <br>
+            <div class="col text-center mt-4 mb-6">
+            <a href="{{the_post.external_website_url}}" class="btn btn-success">Visit Original Site</a>
+            <a href="{{the_post.participate_link}}" class="btn btn-primary">Participate</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4">
+          <div class="card">
+            <div class="card-header border-0">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h3 class="mb-0">Related Challenges</h3>
+                </div>
+                <div class="col text-right">
+                  <a href="#!" class="btn btn-sm btn-primary">See all</a>
+                </div>
+              </div>
+            </div>
+            <div class="">
+              <ul class="list-group list-group-flush list pr-4 pl-4 pb-4">
+                {% for otherchallenge in allchallenges %}
+                  {% if otherchallenge.id != the_post.id %}
+                <li class="list-group-item px-0">
+                  <div class="row align-items-center">
+                    <div class="col-auto">
+                      <!-- Avatar -->
+                      <a href="#" class="avatar rounded-circle" style="background-color:white!important;">
+                        <p style="margin-top:16px;font-size:30px; color:rgba(0,0,0,.15) !important;"><b>0{{forloop.counter}}</b></p>
+                      </a>
+                    </div>
+                    <div class="col">
+                      <h3>{{otherchallenge.title}}</h3>
+                      <div>
+                        <p class="small text-muted">I'm sending postcards from my heart we fell like we've been caught like kids in the school yard</p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                {% endif %}
+                {% endfor %}
+
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+{% endblock content %}
+
+{% block footer %}
+{% include 'mainapp/footer2.html' %}
+{% endblock footer %}
+    </div>
+  </div>
+
+{% block js %}
+{% include 'mainapp/head3-bottom.html' %}
+{% endblock js %}

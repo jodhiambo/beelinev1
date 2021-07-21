@@ -1,0 +1,31 @@
+{% extends "mainapp/base.html" %}
+
+{% block content %}
+{% include "mainapp/navbar.html" %}
+<br><br><br>
+<br><br><br>
+<br>
+<div class="container">
+    <h3 class="text-center">Here are all the Categories</h3><br>
+    <div class="row">
+        <div style="background-color: #fff">
+            <br>
+            <div class="container">
+                <div class="row">
+                    <ul class="list-inline">
+                        {% for category in allcategories.all %}
+                        <li class="list-inline-item" style="font-size: 16px!important; margin-top: 25px;">
+                            <span style="background-color: rgb(242, 242, 242); padding: 5px 10px; border-radius: 3px; ">
+                                <a href="{% url 'mainapp:tagged' category.id %}"
+                                    style="color:rgb(117, 117, 117)!important; font-family: 'FK Grotesk';">{{category}}</a></span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <br>
+                </div><br><br><br>
+                <br><br>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

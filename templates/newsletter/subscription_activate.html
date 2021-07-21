@@ -1,0 +1,14 @@
+{% extends "mainapp/base.html" %}
+
+
+{% block content %}
+<br><br>
+<div class="container">
+    <h1>Newsletter {{ newsletter.title }} {{ action }} activate</h1>
+    <form enctype="multipart/form-data" method="post" action=".">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <p><input id="id_submit" name="submit" value="Activate" type="submit" /></p>
+    </form>
+</div>
+{% endblock content %}

@@ -1,0 +1,137 @@
+{% extends 'mainapp/base2.html' %}
+{% load socialaccount %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block css %}
+{% include 'mainapp/head5.html' %}
+{% endblock css %}
+
+{% block content %}
+
+  <nav id="navbar-main" class="navbar navbar-horizontal navbar-transparent navbar-main navbar-expand-lg navbar-light">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'mainapp:homepage' %}">
+        <img src="{% static 'assets/img/logo.png' %}" style="width:150px; height:auto">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse navbar-custom-collapse collapse" id="navbar-collapse">
+        <div class="navbar-collapse-header">
+          <div class="row">
+            <div class="col-6 collapse-brand">
+              <a href="{% url 'mainapp:homepage' %}">
+                <img src="{% static 'assets/img/logo.png' %}" style="width:150px; height:auto">
+              </a>
+            </div>
+            <div class="col-6 collapse-close">
+              <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a href="{% url 'mainapp:homepage' %}" class="nav-link">
+              <span class="nav-link-inner--text">Home</span>
+            </a>
+          </li>
+          <li class="nav-item">
+              <a href="{% url 'mainapp:about'%}" class="nav-link" >About Us</a>
+          </li>
+          <li class="nav-item">
+              <a href="{% url 'news:news'%}" class="nav-link" >News</a>
+          </li>
+          <li class="nav-item">
+          <a href="{% url 'mainapp:submit-a-challenge'%}" target="_blank" class="nav-link"><i class="fas fa-paper-plane mr-2"></i>Submit a Challenge</a>
+          </li>
+          
+          {% if not user.is_authenticated %}
+          <li class="nav-item">
+              <a href="{% url 'users:account_login' %}" class="nav-link" >Login or Register</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+              <a href="{% url 'userprofiles:profile' %}" class="nav-link">Profile</a>
+          </li>
+          <li class="nav-item">
+          <a href="{% url 'account_logout' %}" class="nav-link" >Logout</a>
+          </li>
+          {% endif %}  
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- Main content -->
+  <div class="main-content">
+    <!-- Header bg-gradient-primary
+    <div class="header  py-7 py-lg-8 pt-lg-9" style="background-image:linear-gradient(#1F1C18, #8E0E00)">-->
+    <div class="header  py-7 py-lg-8 pt-lg-9" style="background-image:linear-gradient(#181818, #BA8B02)">
+    <!--<div class="header  py-7 py-lg-8 pt-lg-9" style="background-image:linear-gradient(#141517, #6A9113)">
+    <div class="header  py-7 py-lg-8 pt-lg-9" style="background-image:linear-gradient(#0b8793, #360033)">-->
+      <div class="container">
+        <div class="header-body text-center mb-7">
+          <div class="row justify-content-center">
+            <div class="col-xl-5 col-lg-6 col-md-8 px-5">
+              <h1 class="text-white" style="font-family: 'DM Serif Display', serif !important;font-size:45px;">Join Us Today!</h1>
+              <p class="text-lead text-white">Let's join arms and solve problems together</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page content -->
+    <div class="container mt--9 pb-5">
+      <!-- Table -->
+      <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+          <div class="card bg-secondary border border-soft">
+            <div class="card-header bg-transparent pb-5">
+              <div class="text-muted text-center mt-2 mb-4"><small>Sign up with</small></div>
+              <div class="text-center">
+                <a href="{% provider_login_url 'google' %}" class="btn btn-neutral btn-icon">
+                  <span class="btn-inner--icon"><img src="{% static 'assets/img/google.svg' %}"></span>
+                  <span class="btn-inner--text">Google</span>
+                </a>
+              </div>
+            </div>
+            <div class="card-body px-lg-5 py-lg-5">
+              <div class="text-center text-muted mb-4">
+                <small>Or sign up with credentials</small>
+              </div>
+              <form role="form" method="POST">
+              {% csrf_token %}
+                <div class="form-group">
+                  {{ form|crispy }}
+                </div>
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary mt-4">Create account</button>
+                </div>
+              </form>
+              
+            </div>
+            
+          </div>
+          <div class="row mt-3">
+            <div class="col-6">
+              
+            </div>
+            <div class="col-6 text-right">
+              <a href="{% url 'users:account_login' %}" class="badge badge-pill badge-primary text-white">Login Instead</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock content %}
+
+  {% block footer %}
+    {% include 'mainapp/footer4.html' %}
+  {% endblock footer %}
+
+  {% block js %}
+  {% include 'mainapp/head4-bottom.html' %}
+  {% endblock js %}

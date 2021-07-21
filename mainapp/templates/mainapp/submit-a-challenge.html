@@ -1,0 +1,152 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block css %}
+{% include 'mainapp/head1.html' %}
+{% endblock css %}
+
+{% block content %}
+    <header class="header-global">
+    <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg headroom py-lg-3 px-lg-6 navbar-light navbar-theme-dark">
+        <div class="container">
+            <a class="navbar-brand @@logo_classes" href="../../index.html">
+                <img class="navbar-brand-dark common" src="{% static 'assets/img/logo.png' %}" style="width:150px; height:auto" alt="Logo light">
+                <img class="navbar-brand-light common" src="{% static 'assets/img/logo.png' %}" style="width:150px; height:auto" alt="Logo dark">
+            </a>
+            <div class="navbar-collapse collapse" id="navbar_global">
+                <div class="navbar-collapse-header">
+                    <div class="row">
+                        <div class="col-6 collapse-brand">
+                            <a href="../../index.html">
+                                <img src="{% static 'assets/img/logo.png' %}" style="width:180px; height:auto" alt="Logo dark">
+                            </a>
+                        </div>
+                        <div class="col-6 collapse-close">
+                            <a href="#navbar_global" role="button" class="fas fa-times" data-toggle="collapse"
+                                data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false"
+                                aria-label="Toggle navigation"></a>
+                        </div>
+                    </div>
+                </div>
+                <ul class="navbar-nav navbar-nav-hover justify-content-center">
+                    <li class="nav-item">
+                        <a href="{% url 'mainapp:homepage' %}" class="nav-link" >Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" aria-expanded="false" data-toggle="dropdown">
+                            <span class="nav-link-inner-text mr-1" >Challenges</span>
+                            <i class="fas fa-angle-down nav-link-arrow" ></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg">
+                            <div class="col-auto px-0" data-dropdown-content>
+                                <div class="list-group list-group-flush">
+                                    <a href="{% url 'mainapp:challenges' %}"
+                                        class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
+                                        <span class="icon icon-sm icon-black"><i class="fas fa-check-double"></i></span>
+                                        <div class="ml-4">
+                                            <span class="d-block">All Challenges</span>
+                                        </div>
+                                    </a>
+                                    <a href="{% url 'mainapp:open-challenges' %}" target="_blank"
+                                        class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
+                                        <span class="icon icon-sm icon-success"><i
+                                                class="fas fa-box-open"></i></span>
+                                        <div class="ml-4">
+                                            <span class="d-block">Open Challenges</span>
+                                        </div>
+                                    </a>
+                                    <a href="{% url 'mainapp:rolling' %}" target="_blank"
+                                        class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
+                                        <span class="icon icon-sm icon-primary"><i
+                                                class="fas fa-sync-alt"></i></span>
+                                        <div class="ml-4">
+                                            <span class="d-block">Rolling Challenges</span>
+                                        </div>
+                                    </a>
+                                    <a href="{% url 'mainapp:coming-soon' %}" target="_blank"
+                                        class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
+                                        <span class="icon icon-sm icon-purple"><i
+                                                class="far fa-clock"></i></span>
+                                        <div class="ml-4">
+                                            <span class="d-block">Coming Soon</span>
+                                        </div>
+                                    </a>
+                                    <a href="{% url 'mainapp:archived' %}" target="_blank"
+                                        class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
+                                        <span class="icon icon-sm icon-danger"><i
+                                                class="fas fa-archive"></i></span>
+                                        <div class="ml-4">
+                                            <span class="d-block">Archived Challenges</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'mainapp:about'%}" class="nav-link" >About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'news:news'%}" class="nav-link" >News</a>
+                    </li>
+                    <li class="nav-item">
+                    <a href="{% url 'mainapp:submit-a-challenge'%}" target="_blank" class="nav-link"><i class="fas fa-paper-plane mr-2"></i>Submit a Challenge</a>
+                    </li>
+                    
+                    {% if not user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href="{% url 'users:account_login' %}" class="nav-link" >Login or Register</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a href="{% url 'userprofiles:profile' %}" class="nav-link">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                    <a href="{% url 'account_logout' %}" class="nav-link" >Logout</a>
+                    </li>
+                    {% endif %}  
+
+                </ul>
+            </div>
+            <div class="d-flex d-lg-none align-items-center">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global"
+                    aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation"><span
+                        class="navbar-toggler-icon"></span></button>
+            </div>
+        </div>
+    </nav>
+</header>
+    <main class=" bg-soft pt-7">
+        <section class="section section-lg pt-4">
+            <div class="container">
+                <div class="row justify-content-center mb-3 mb-md-5">
+                    <div class="col-12 col-md-8 text-center">
+                        <h2 class="h1 font-weight-bolder mb-0">Have a challenge? Submit it to us using this form</h2>
+
+                    </div>
+                </div>
+
+                <div class="row row-grid align-items-center mb-2 mb-md-4">
+                    <!--<div class="col-12 col-md-12 order-md-2">-->
+                        <br>
+                        <div class="col-8 mx-auto">
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{form|crispy}}
+                            <input type="submit" class="btn btn-primary animate-up-2" value="Submit">
+                        </form>
+                        </div>
+                    <!--</div>-->
+                </div>
+            </div>
+        </section>
+{% endblock content%}
+
+{% block footer %}
+{% include 'mainapp/footer1.html' %}
+{% endblock footer %}
+    </main>
+
+{% block js %}
+{% include 'mainapp/head1-bottom.html' %}
+{% endblock js %}

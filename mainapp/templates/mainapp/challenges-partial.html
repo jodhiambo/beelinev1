@@ -1,0 +1,46 @@
+<div class="row" id="replaceable-content">
+{% for post in posts.object_list %}
+<div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 card-group">
+    <!-- <div class="col-sm-4"> -->
+    <div class="card animate-up-3 mt-5" style="border-radius:15px;">
+        <div class="date" style="background-color:#EE5050; padding:2px 4px; border-radius:5px;position: absolute;top: 14px;left:16px;">
+            {% if post.status == 'Open' %}
+            <span class="day font-weight-bolder text-white">{{post.open_until|timeuntil:post.date_posted}} left</span>
+            {% else %}
+            <span class="day font-weight-bolder text-white">Ongoing</span>
+            {% endif %}
+        </div>
+        <ul class="menu-content" style="position: absolute;top: 14px;right: 16px;">
+            {% if user.is_authenticated %}
+            {% for cha in post.favourite.all %}
+            {% if cha.username == user.username %}
+            <li>
+                <a class="fas fa-bookmark" style="box-shadow: 0 8px 16px rgba(0, 0, 0, 0.95); color:white"></a>
+            </li>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+        </ul>
+        <a href="{% url 'mainapp:detail' post.id post.slug %}">
+            <img src="{{post.image.url}}" class="card-img-top" style="height:200px;width:100%">
+        </a>
+        <div class="card-body bg-white" style="border-radius:0 0 15px 15px;box-shadow: 0 15px 12px rgba(0, 0, 0, 0.2)">
+            <p><span class="author text-black font-weight-bolder">{{post.offered_by|truncatewords:"3"}}</span>
+                <span class="text-black font-weight-bolder pr-2" style="float:right!important">Status 
+                <span class="badge badge-success badge">
+                {% if post.status == 'Open' %}
+                Open
+                {% else %}
+                Ongoing
+                {% endif %}
+                </span></span>
+            </p>
+            <h5 class="card-title"><a href="{% url 'mainapp:detail' post.id post.slug %}">{{post.title|truncatewords:"5"}}</a></h5>
+            <p class="card-text">{{post.challenge_summary|truncatechars:"150"|safe}}</p>
+            <p class="text-black pt-3 font-weight-bolder"><i class="fas fa-trophy text-brown"></i>&nbsp;{{post.prize|truncatechars:"40"|safe}}</p>
+        </div>
+    </div>
+    <!-- </div> -->
+</div>
+{% endfor %}
+</div>

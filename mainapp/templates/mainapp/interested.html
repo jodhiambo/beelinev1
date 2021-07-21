@@ -1,0 +1,3 @@
+{% for person in interested_people  %}
+  <p><a href="{% url 'users:the-user' person.id %}">{{person.username}}</a></p>
+{% endfor %}

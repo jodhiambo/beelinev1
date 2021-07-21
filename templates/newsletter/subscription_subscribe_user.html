@@ -1,0 +1,24 @@
+{% extends "mainapp/base.html" %}
+
+{% block content %}
+<br><br>
+<div class="container">
+<h3>Subscription status for <b>{{ newsletter.title }}</b> newsletter</h3>
+<br>
+<h5>Welcome, {{ user }}!</h5>
+
+{% if messages %}
+<ul>
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>Do you want to subscribe to this newsletter?</p>
+<form enctype="multipart/form-data" method="post" action="{% url 'newsletter_subscribe_confirm' newsletter.slug %}">
+    {% csrf_token %}
+    <p><input id="id_submit" name="submit" value="Subscribe" type="submit" /></p>
+</form>
+</div>
+{% endif %}
+{% endblock content %}
